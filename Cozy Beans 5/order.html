@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order - Cozy Beans</title>
+
+    <!-- Bootstrap & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f7efe6;
+            font-family: 'Georgia', serif;
+        }
+
+        .top-strip {
+            background-color: #4b2e2b;
+            color: white;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-link, .navbar-brand, h1, h2, h3, h4 {
+            color: #4b2e2b !important;
+        }
+
+        .btn-coffee {
+            background-color: #3c2623;
+            color: #f7efe6;
+            border-radius: 30px;
+            padding: 10px 25px;
+        }
+
+        .btn-coffee:hover {
+            background-color: #2a1b19;
+            color: #ffffff;
+        }
+
+        .section-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .menu-item-card {
+            border-radius: 16px;
+            border: 1px solid #e3d3c5;
+            padding: 16px;
+            background-color: #fffaf4;
+        }
+
+        .category-title {
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #4b2e2b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .footer-box {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 35px;
+        }
+
+        .footer-link {
+            display: block;
+            color: #4b2e2b;
+            text-decoration: none;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        .social-icon {
+            background: #3c2623;
+            color: white;
+            padding: 10px 13px;
+            border-radius: 50%;
+            font-size: 18px;
+        }
+
+        .badge-category {
+            background-color: #4b2e2b;
+            color: #f7efe6;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+        }
+
+        .order-total-box {
+            background-color: #fffaf4;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #e3d3c5;
+        }
+
+        .empty-cart-text {
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .table-sm td, .table-sm th {
+            padding: 0.4rem;
+            vertical-align: middle;
+        }
+
+        /* Unified Add button */
+        .add-btn-fixed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+
+            background-color: #3c2623;
+            color: #f7efe6;
+
+            padding: 8px 26px;
+            border-radius: 40px;
+            font-size: 15px;
+            font-weight: 500;
+
+            height: 42px;
+            white-space: nowrap;
+
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .add-btn-fixed:hover {
+            background-color: #2a1b19;
+            color: #fff;
+        }
+
+        .add-btn-fixed i {
+            font-size: 17px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Top strip -->
+<div class="top-strip text-center py-2">
+    <span>Fresh Coffee • Cozy Vibes • Daily Brew</span>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <img src="logo.PNG" alt="Cozy Beans Logo" style="height:150px;">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto gap-4">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+                <li class="nav-item"><a class="nav-link active" href="order.html">Place Order</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+            </ul>
+
+            <a class="btn btn-coffee ms-4" href="contact.html">Contact</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main content -->
+<div class="container my-5">
+
+    <!-- Success / error message -->
+    <div id="orderMessage" class="alert text-center d-none" role="alert"></div>
+
+    <div class="text-center mb-4">
+        <h2 style="color:#4b2e2b;">Place Your Order</h2>
+        <p class="text-muted mb-0">
+            Select your favorite drinks and desserts, choose size and quantity, and your order summary will update automatically.
+        </p>
+    </div>
+
+    <div class="row g-4">
+        <!-- MENU COLUMN -->
+        <div class="col-lg-7">
+            <div class="section-box">
+
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="mb-0" style="color:#4b2e2b;">Menu</h5>
+                    <span class="text-muted small">Prices in SAR</span>
+                </div>
+
+                <!-- HOT COFFEE -->
+                <div class="category-title">HOT COFFEE</div>
+
+                <!-- ESPRESSO -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Espresso"
+                     data-base-price="10"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>ESPRESSO</strong>
+                                <span class="badge badge-category">HOT</span>
+                            </div>
+                            <small class="text-muted">Strong, rich concentrated coffee.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">10 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <!-- Espresso: Original / Double Shot -->
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Original" data-multiplier="1">Original</option>
+                                <option value="Double Shot (+5 SAR)" data-multiplier="1.5">
+                                    Double Shot (+5 SAR)
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AMERICANO -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Americano"
+                     data-base-price="12"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>AMERICANO</strong>
+                                <span class="badge badge-category">HOT</span>
+                            </div>
+                            <small class="text-muted">Espresso with hot water.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">12 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAPPUCCINO -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Cappuccino"
+                     data-base-price="15"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>CAPPUCCINO</strong>
+                                <span class="badge badge-category">HOT</span>
+                            </div>
+                            <small class="text-muted">Espresso with foam and hot milk.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">15 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LATTE (HOT / ICED) -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Latte"
+                     data-base-price="16"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>LATTE</strong>
+                                <span class="badge badge-category">HOT / ICED</span>
+                            </div>
+                            <small class="text-muted">Smooth espresso with creamy milk, hot or iced.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">16 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-temp">
+                                <option value="Hot">Hot</option>
+                                <option value="Iced">Iced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPANISH LATTE (HOT / ICED) -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Spanish Latte"
+                     data-base-price="17"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>SPANISH LATTE</strong>
+                                <span class="badge badge-category">HOT / ICED</span>
+                            </div>
+                            <small class="text-muted">Toffee-flavored sweetened latte, hot or iced.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">17 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-temp">
+                                <option value="Hot">Hot</option>
+                                <option value="Iced">Iced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MOCHA (HOT / ICED) -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Mocha"
+                     data-base-price="17"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>MOCHA</strong>
+                                <span class="badge badge-category">HOT / ICED</span>
+                            </div>
+                            <small class="text-muted">Espresso with chocolate, hot or iced.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">17 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-temp">
+                                <option value="Hot">Hot</option>
+                                <option value="Iced">Iced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FLAT WHITE -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Flat White"
+                     data-base-price="16"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>FLAT WHITE</strong>
+                                <span class="badge badge-category">HOT</span>
+                            </div>
+                            <small class="text-muted">Balanced espresso with silky milk.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">16 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ICED COFFEE -->
+                <div class="category-title">ICED COFFEE</div>
+
+                <!-- ICED CARAMEL LATTE -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Iced Caramel Latte"
+                     data-base-price="18"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>ICED CARAMEL LATTE</strong>
+                                <span class="badge badge-category">ICED</span>
+                            </div>
+                            <small class="text-muted">Iced latte with caramel.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">18 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLD BREW -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Cold Brew"
+                     data-base-price="18"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>COLD BREW</strong>
+                                <span class="badge badge-category">ICED</span>
+                            </div>
+                            <small class="text-muted">Slow-brewed smooth coffee.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">18 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NON-COFFEE DRINKS -->
+                <div class="category-title">NON-COFFEE DRINKS</div>
+
+                <!-- MATCHA LATTE (HOT / ICED) -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Matcha Latte"
+                     data-base-price="18"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>MATCHA LATTE</strong>
+                                <span class="badge badge-category">HOT / ICED</span>
+                            </div>
+                            <small class="text-muted">Japanese green matcha with milk.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">18 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-temp">
+                                <option value="Hot">Hot</option>
+                                <option value="Iced">Iced</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 col-6">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HOT CHOCOLATE -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Hot Chocolate"
+                     data-base-price="17"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>HOT CHOCOLATE</strong>
+                                <span class="badge badge-category">HOT</span>
+                            </div>
+                            <small class="text-muted">Rich, creamy chocolate drink.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">17 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ICED LEMON TEA -->
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Iced Lemon Tea"
+                     data-base-price="15"
+                     data-type="drink">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>ICED LEMON TEA</strong>
+                                <span class="badge badge-category">ICED</span>
+                            </div>
+                            <small class="text-muted">Chilled tea with lemon.</small>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block">from</small>
+                            <span class="fw-semibold">15 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-6 col-12">
+                            <select class="form-select form-select-sm item-size">
+                                <option value="Small" data-multiplier="1">Small</option>
+                                <option value="Medium (+3 SAR)" data-multiplier="1.2">Medium (+3 SAR)</option>
+                                <option value="Large (+6 SAR)" data-multiplier="1.4">Large (+6 SAR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-4 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BAKERY -->
+                <div class="category-title">BAKERY</div>
+
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Butter Croissant"
+                     data-base-price="12"
+                     data-type="food">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>BUTTER CROISSANT</strong>
+                                <span class="badge badge-category">BAKERY</span>
+                            </div>
+                            <small class="text-muted">Fresh buttery croissant.</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="fw-semibold">12 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-4 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-8 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Chocolate Croissant"
+                     data-base-price="14"
+                     data-type="food">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>CHOCOLATE CROISSANT</strong>
+                                <span class="badge badge-category">BAKERY</span>
+                            </div>
+                            <small class="text-muted">Croissant filled with chocolate.</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="fw-semibold">14 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-4 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-8 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DESSERTS -->
+                <div class="category-title">DESSERTS</div>
+
+                <div class="menu-item-card mb-3 menu-item"
+                     data-name="Classic Cheesecake"
+                     data-base-price="19"
+                     data-type="food">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>CLASSIC CHEESECAKE</strong>
+                                <span class="badge badge-category">DESSERT</span>
+                            </div>
+                            <small class="text-muted">Smooth classic cheesecake.</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="fw-semibold">19 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-4 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-8 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item-card mb-1 menu-item"
+                     data-name="Chocolate Brownie"
+                     data-base-price="15"
+                     data-type="food">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="d-flex align-items-center gap-2">
+                                <strong>CHOCOLATE BROWNIE</strong>
+                                <span class="badge badge-category">DESSERT</span>
+                            </div>
+                            <small class="text-muted">Rich fudgy brownie.</small>
+                        </div>
+                        <div class="text-end">
+                            <span class="fw-semibold">15 SAR</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2 g-2 align-items-center">
+                        <div class="col-md-4 col-4">
+                            <input type="number" class="form-control form-control-sm item-qty" value="1" min="1">
+                        </div>
+                        <div class="col-md-8 col-8 text-md-end">
+                            <button type="button" class="add-btn-fixed add-to-cart-btn">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY COLUMN -->
+        <div class="col-lg-5">
+            <div class="section-box">
+                <h5 class="mb-3" style="color:#4b2e2b;">Order Summary</h5>
+
+                <div id="emptyCartText" class="empty-cart-text mb-2">
+                    Your cart is currently empty. Start adding items from the menu.
+                </div>
+
+                <div class="table-responsive mb-3">
+                    <table class="table table-sm align-middle mb-0">
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th class="text-center">Qty</th>
+                            <th class="text-end">Price</th>
+                            <th class="text-end">Total</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="cartBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="order-total-box mb-3">
+                    <div class="d-flex justify-content-between">
+                        <span class="fw-semibold">Total</span>
+                        <span class="fw-bold" id="cartTotal">0.00 SAR</span>
+                    </div>
+                </div>
+
+                <button id="placeOrderBtn" type="button" class="btn btn-coffee w-100">
+                    <i class="bi bi-bag-check"></i> Place Order
+                </button>
+
+                <p class="text-muted small mt-2 mb-0">
+                    * Orders placed through this page are for Cozy Beans Café website.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="container mb-5">
+    <div class="footer-box">
+        <div class="row align-items-center">
+
+            <div class="col-md-9 mb-3 mb-md-0">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <a href="index.html" class="footer-link">Home</a>
+                    <a href="menu.html" class="footer-link">Menu</a>
+                    <a href="about.html" class="footer-link">About Us</a>
+                    <a href="contact.html" class="footer-link">Contact Us</a>
+                </div>
+            </div>
+
+            <div class="col-md-3 text-md-end text-center">
+                <div class="d-flex justify-content-md-end justify-content-center gap-2 mb-3">
+                    <div class="social-icon"><i class="bi bi-instagram"></i></div>
+                    <div class="social-icon"><i class="bi bi-tiktok"></i></div>
+                </div>
+                <a href="menu.html" class="btn btn-coffee w-100">
+                    Menu
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript for cart + order -->
+<script>
+    let cart = [];
+
+    // Add item to cart
+    document.querySelectorAll(".add-to-cart-btn").forEach(function (button) {
+        button.addEventListener("click", function () {
+            const card = this.closest(".menu-item");
+            const name = card.getAttribute("data-name");
+            const basePrice = parseFloat(card.getAttribute("data-base-price"));
+
+            const sizeSelect = card.querySelector(".item-size");
+            const tempSelect = card.querySelector(".item-temp");
+
+            // Size text (Small / Medium (+3 SAR) / etc.)
+            let sizeText = sizeSelect
+                ? sizeSelect.options[sizeSelect.selectedIndex].text
+                : "Regular";
+
+            // Add Hot / Iced if available
+            if (tempSelect) {
+                const tempText = tempSelect.options[tempSelect.selectedIndex].text;
+                sizeText += " - " + tempText; // e.g., Medium (+3 SAR) - Iced
+            }
+
+            // Extract extra price from text (+3 SAR / +6 SAR / +5 SAR)
+            let extra = 0;
+            const match = sizeText.match(/\+(\d+)\s*SAR/i);
+            if (match) {
+                extra = parseFloat(match[1]);
+            }
+
+            const unitPrice = basePrice + extra;
+
+            const qtyInput = card.querySelector(".item-qty");
+            let quantity = parseInt(qtyInput.value, 10);
+            if (isNaN(quantity) || quantity < 1) {
+                quantity = 1;
+                qtyInput.value = 1;
+            }
+
+            const sizeLabel = sizeText;
+
+            const existingIndex = cart.findIndex(function (item) {
+                return item.name === name && item.size === sizeLabel;
+            });
+
+            if (existingIndex !== -1) {
+                cart[existingIndex].quantity += quantity;
+            } else {
+                cart.push({
+                    name: name,
+                    size: sizeLabel,
+                    unitPrice: unitPrice,
+                    quantity: quantity
+                });
+            }
+
+            renderCart();
+        });
+    });
+
+    // Render cart table
+    function renderCart() {
+        const cartBody = document.getElementById("cartBody");
+        const cartTotalSpan = document.getElementById("cartTotal");
+        const emptyText = document.getElementById("emptyCartText");
+
+        cartBody.innerHTML = "";
+
+        if (cart.length === 0) {
+            emptyText.style.display = "block";
+            cartTotalSpan.textContent = "0.00 SAR";
+            return;
+        } else {
+            emptyText.style.display = "none";
+        }
+
+        let total = 0;
+
+        cart.forEach(function (item, index) {
+            const rowTotal = item.unitPrice * item.quantity;
+            total += rowTotal;
+
+            const tr = document.createElement("tr");
+
+            tr.innerHTML =
+                '<td>' +
+                '<span class="d-block fw-semibold">' + item.name + '</span>' +
+                '<small class="text-muted">' + item.size + '</small>' +
+                '</td>' +
+                '<td class="text-center" style="width:70px;">' +
+                '<input type="number" min="1" class="form-control form-control-sm cart-qty-input" ' +
+                'data-index="' + index + '" value="' + item.quantity + '">' +
+                '</td>' +
+                '<td class="text-end">' +
+                '<small>' + item.unitPrice.toFixed(2) + ' SAR</small>' +
+                '</td>' +
+                '<td class="text-end">' +
+                '<strong>' + rowTotal.toFixed(2) + ' SAR</strong>' +
+                '</td>' +
+                '<td class="text-end" style="width:40px;">' +
+                '<button type="button" class="btn btn-sm btn-link text-danger p-0 cart-remove-btn" ' +
+                'data-index="' + index + '">' +
+                '<i class="bi bi-x-circle"></i>' +
+                '</button>' +
+                '</td>';
+
+            cartBody.appendChild(tr);
+        });
+
+        cartTotalSpan.textContent = total.toFixed(2) + " SAR";
+
+        // Change quantity inside cart
+        Array.prototype.forEach.call(
+            document.querySelectorAll(".cart-qty-input"),
+            function (input) {
+                input.addEventListener("change", function () {
+                    const i = parseInt(this.getAttribute("data-index"), 10);
+                    let newQty = parseInt(this.value, 10);
+                    if (isNaN(newQty) || newQty < 1) {
+                        newQty = 1;
+                        this.value = 1;
+                    }
+                    cart[i].quantity = newQty;
+                    renderCart();
+                });
+            }
+        );
+
+        // Remove item from cart
+        Array.prototype.forEach.call(
+            document.querySelectorAll(".cart-remove-btn"),
+            function (btn) {
+                btn.addEventListener("click", function () {
+                    const i = parseInt(this.getAttribute("data-index"), 10);
+                    cart.splice(i, 1);
+                    renderCart();
+                });
+            }
+        );
+    }
+
+    // Place Order with details
+    document.getElementById("placeOrderBtn").addEventListener("click", function (event) {
+        event.preventDefault();
+        const messageBox = document.getElementById("orderMessage");
+
+        if (cart.length === 0) {
+            messageBox.innerHTML = "Your cart is empty. Please add items before placing an order.";
+            messageBox.className = "alert alert-danger text-center";
+            messageBox.classList.remove("d-none");
+            messageBox.scrollIntoView({behavior: "smooth", block: "start"});
+            return;
+        }
+
+        const total = cart.reduce(function (sum, item) {
+            return sum + item.unitPrice * item.quantity;
+        }, 0);
+
+        let itemsHtml = "";
+        cart.forEach(function (item) {
+            const rowTotal = (item.unitPrice * item.quantity).toFixed(2);
+            itemsHtml +=
+                "<li>" +
+                item.quantity + " × " + item.name + " (" + item.size + ") – " +
+                rowTotal + " SAR" +
+                "</li>";
+        });
+
+        messageBox.innerHTML =
+            '<h5 class="mb-2">Thank you! Your order has been placed.</h5>' +
+            '<p class="mb-1">Order details:</p>' +
+            '<ul class="mb-2 text-start" style="max-width: 500px; margin: 0 auto;">' +
+            itemsHtml +
+            '</ul>' +
+            '<p class="fw-semibold mb-0">Total: ' + total.toFixed(2) + ' SAR</p>';
+
+        messageBox.className = "alert alert-success text-center";
+        messageBox.classList.remove("d-none");
+        messageBox.scrollIntoView({behavior: "smooth", block: "start"});
+    });
+</script>
+
+</body>
+</html>
+
+
+
+
